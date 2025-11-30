@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: RF4 Energy Simulation API
+  version: 1.0.0
+  description: API per la simulazione dei consumi energetici personali (RF4) e confronto con media locale
+servers:
+  - url: http://localhost:4000/api
+    description: Server locale di sviluppo
+paths:
+  /simulation:
+    post:
+      summary: Esegui la simulazione del consumo energetico personale
+      tags:
+        - Simulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimulationRequest'
+      responses:
+        '200':
+          description: Risultato della simulazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationResponse'
+        '500':
+          description: Errore server
+  /locations:
+    get:
+      summary: Restituisce la lista delle località disponibili
+      tags:
+        - Locations
+      responses:
+        '200':
+          description: Lista delle località
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '500':
+          description: Errore server
+  /simulation/compare/{locationId}:
+    get:
+      summary: Confronto della simulazione con la media locale
+      tags:
+        - Simulation
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID della località
+      responses:
+        '200':
+          description: Media della località
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationCompareResponse'
+        '404':
+          description: Località non trovata
+        '500':
+          description: Errore server
+
+components:
+  schemas:
+    SimulationRequest:
+      type: object
+      required:
+        - squareMeters
+        - housingType
+        - residents
+        - energy
+        - locationId
+      properties:
+        squareMeters:
+          type: number
+          description: Metratura dell'abitazione in metri quadrati
+          example: 80
+        housingType:
+          type: string
+          enum: [apartment, house]
+          description: Tipologia abitazione
+          example: apartment
+        residents:
+          type: integer
+          description: Numero di residenti
+          example: 2
+        energy:
+          type: object
+          description: Tipologia dell'energia utilizzata
+          properties:
+            water:
+              type: string
+              enum: [gas, electricity]
+              example: electricity
+            heating:
+              type: string
+              enum: [gas, electricity]
+              example: gas
+            cooking:
+              type: string
+              enum: [gas, electricity]
+              example: electricity
+        locationId:
+          type: string
+          description: ID della località
+          example: tn01
+
+    SimulationResponse:
+      type: object
+      properties:
+        estimatedConsumptionKWh:
+          type: number
+          description: Consumo stimato in kWh/anno
+          example: 4200
+        co2EquivalentKg:
+          type: number
+          description: Emissioni di CO₂ equivalenti in kg/anno
+          example: 1350
+        locationAverage:
+          $ref: '#/components/schemas/SimulationCompareResponse'
+
+    SimulationCompareResponse:
+      type: object
+      properties:
+        estimatedConsumptionKWh:
+          type: number
+          description: Media locale consumi kWh
+          example: 4500
+        co2EquivalentKg:
+          type: number
+          description: Media locale emissioni CO₂ in kg
+          example: 1450
+
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID della località
+          example: tn01
+        name:
+          type: string
+          description: Nome della località
+          example: Trento - Centro
+        climateFactor:
+          type: number
+          description: Fattore climatico della località
+          example: 1.0
