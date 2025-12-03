@@ -19,14 +19,6 @@ connectDB(uri)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error', err));
 
-// Endpoint temporaneo di test POST /api/simulation
-app.post('/api/simulation', (req, res) => {
-  console.log('Richiesta ricevuta:', req.body);
-  res.json({
-    message: 'Simulazione ricevuta!',
-    data: req.body
-  });
-});
 
 // Rotte esistenti
 app.use('/api', simulationRoutes);
@@ -37,3 +29,4 @@ app.get('/', (req, res) => res.json({ message: 'RF4 Simulation Backend' }));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => console.log(`Server listening on port ${PORT}`));
+
