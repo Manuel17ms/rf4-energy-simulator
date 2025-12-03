@@ -1,14 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/simulationController');
+router.post('/simulation', (req, res) => {
+  const { squareMeters, housingType, residents, energy, locationId } = req.body;
 
-// POST /api/simulation
-router.post('/simulation', controller.postSimulation);
+  res.json({
+    message: 'Simulazione completata!',
+    data: {
+      squareMeters,
+      housingType,
+      residents,
+      energy,
+      locationId,
+      estimatedConsumptionKWh: 100 + Math.random()*50, // esempio casuale
+      co2EquivalentKg: 50 + Math.random()*20             // esempio casuale
+    }
+  });
+});
 
-// GET /api/locations
-router.get('/locations', controller.getLocations);
 
-// GET /api/simulation/compare/:locationId
-router.get('/simulation/compare/:locationId', controller.compareLocation);
-
-module.exports = router;
