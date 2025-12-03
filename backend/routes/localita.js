@@ -10,7 +10,7 @@ const localita = [
   { id: 'loc5', name: 'Villazzano Tre', climateFactor: 1.1 },
   { id: 'loc6', name: 'Cristo Re', climateFactor: 1.3 },
   { id: 'loc7', name: 'San Bartolomeo', climateFactor: 1.4 },
-  { id: 'loc8', name: 'San Giuseppe', climateFacotr: 1.0 }
+  { id: 'loc8', name: 'San Giuseppe', climateFactor: 1.0 }
 ];
 
 // GET /api/localita
