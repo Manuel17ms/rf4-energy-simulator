@@ -16,9 +16,12 @@ connectDB(uri)
 
 // Routes
 app.use('/api', simulationRoutes);
+app.use('/api/localita', require('./routes/localita'));
+
 
 // Root
 app.get('/', (req, res) => res.json({ message: 'RF4 Simulation Backend' }));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
