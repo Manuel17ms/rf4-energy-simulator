@@ -10,12 +10,14 @@ export function postSimulation(data) {
 }
 
 export function getLocations() {
-  return API.get('/locations').then(res => res.data);
+  return API.get('/localita').then(res => res.data);
 }
+
 
 export function getCompare(locationId) {
   return API.get(`/simulation/compare/${locationId}`).then(res => res.data);
 }
+
 
 
 
