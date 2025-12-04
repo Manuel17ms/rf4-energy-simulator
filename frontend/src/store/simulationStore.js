@@ -33,12 +33,12 @@ export const useSimulationStore = defineStore('simulation', {
   try {
     const res = await postSimulation(this.form);
 
-    console.log('RISPOSTA API:', res); // ✅ controlla nel browser
+    console.log('✅ RISPOSTA API:', res);
 
-    // ✅ SALVIAMO SOLO I DATI UTILI
-    this.result = res.data.data;
+    this.result = res.data;   // ✅ GIUSTO
 
   } catch (err) {
+    console.error('❌ ERRORE API:', err);
     this.error = err.message || 'Errore chiamata API';
   } finally {
     this.loading = false;
@@ -46,5 +46,6 @@ export const useSimulationStore = defineStore('simulation', {
 }
   }
 });
+
 
 
