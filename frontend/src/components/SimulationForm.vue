@@ -72,11 +72,15 @@ export default {
     const store = useSimulationStore();
 
     async function onSubmit() {
-      await store.submitSimulation();
-      emit('submitted');
-    }
+  await store.submitSimulation();
+
+  if (store.result) {
+    window.location.href = '/result';
+  }
+}
 
     return { store, onSubmit };
   }
 };
 </script>
+
