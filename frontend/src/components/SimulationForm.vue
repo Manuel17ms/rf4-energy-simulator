@@ -64,23 +64,30 @@
 
 <script>
 import { useSimulationStore } from '../store/simulationStore';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'SimulationForm',
-  emits: ['submitted'],
-  setup(_, { emit }) {
+  setup() {
     const store = useSimulationStore();
+    const router = useRouter();
 
     async function onSubmit() {
-  await store.submitSimulation();
+      console.log('🔥 SUBMIT PREMUTO');
 
-  if (store.result) {
-    window.location.href = '/result';
-  }
-}
+      await store.submitSimulation();
+
+      console.log('✅ RISULTATO:', store.result);
+
+      if (store.result) {
+        router.push('/result'); // ✅ NO reload, NO reset store
+      }
+    }
 
     return { store, onSubmit };
   }
 };
 </script>
+
+
 
