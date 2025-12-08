@@ -12,13 +12,14 @@ export function postSimulation(data) {
 
 // ✅ LOCALITÀ (NON /localita!)
 export function getLocations() {
-  return API.get('/locations');
+  return API.get('/localita').then(res => res.data);
 }
 
 // ✅ CONFRONTO
 export function compareLocationApi(locationId) {
   return API.get(`/simulation/compare/${locationId}`);
 }
+
 
 
 
