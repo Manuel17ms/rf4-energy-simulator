@@ -1,71 +1,73 @@
 <template>
-  <div style="max-width: 800px; margin: auto; padding: 2rem;">
+  <div>
+    <button @click="goBack" style="margin-bottom:1rem;">← Nuova simulazione</button>
 
-    <h1>RF4 — Simulazione Consumo Energetico</h1>
-
-    <!-- Torna alla home -->
-    <button @click="goHome" style="margin-bottom: 1.5rem;">
-      ← Nuova simulazione
-    </button>
-
-    <!-- RISULTATO -->
-    <div v-if="store.result" style="margin-bottom: 2rem;">
+    <!-- ✅ RISULTATO PRINCIPALE -->
+    <div v-if="store.result" style="border:1px solid #ddd; padding:1rem; border-radius:8px; margin-bottom:1rem;">
       <h2>Risultato Simulazione</h2>
+
       <p><strong>Consumo:</strong> {{ store.result.estimatedConsumptionKWh }} kWh</p>
       <p><strong>CO₂:</strong> {{ store.result.co2EquivalentKg }} kg</p>
     </div>
 
-    <hr />
+    <!-- ✅ CONFRONTO -->
+    <div style="border:1px solid #ddd; padding:1rem; border-radius:8px; margin-bottom:1rem;">
+      <h3>Confronto con la località</h3>
 
-    <!-- CONFRONTO -->
-    <LocationCompare />
+      <select v-model="selectedLocation">
+        <option value="">-- Seleziona località --</option>
+        <option v-for="loc in store.locations" :key="loc.id" :value="loc.id">
+          {{ loc.name }}
+        </option>
+      </select>
 
-    <hr />
+      <button @click="compare" style="margin-left:0.5rem;">
+        Confronta
+      </button>
 
-    <!-- STORICO -->
-    <SimulationHistory />
+      <div v-if="store.compareResult" style="margin-top:1rem;">
+        <p><strong>Consumo medio:</strong> {{ store.compareResult.estimatedConsumptionKWh }} kWh</p>
+        <p><strong>CO₂ medio:</strong> {{ store.compareResult.co2EquivalentKg }} kg</p>
+      </div>
+    </div>
 
+    <!-- ✅ STORICO -->
+    <div style="border:1px solid #ddd; padding:1rem; border-radius:8px;">
+      <h3>📊 Storico Simulazioni</h3>
+
+      <div v-if="store.history.length === 0">
+        Nessuna simulazione ancora.
+      </div>
+
+      <ul>
+        <li v-for="(item, index) in store.history" :key="index">
+          📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — 🌱 {{ item.co2 }} kg CO₂
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 import { useSimulationStore } from '../store/simulationStore';
-import LocationCompare from '../components/LocationCompare.vue';
-import SimulationHistory from '../components/SimulationHistory.vue';
 
 export default {
   name: 'ResultView',
-  components: {
-    LocationCompare,
-    SimulationHistory
-  },
   setup() {
     const store = useSimulationStore();
+    const selectedLocation = ref('');
 
-    function goHome() {
+    async function compare() {
+      if (!selectedLocation.value) return;
+      await store.compareLocation(selectedLocation.value);
+    }
+
+    function goBack() {
       window.location.href = '/';
     }
 
-    return {
-      store,
-      goHome
-    };
+    return { store, selectedLocation, compare, goBack };
   }
 };
 </script>
-
-<style scoped>
-h1 {
-  margin-bottom: 1rem;
-}
-
-h2 {
-  margin-top: 1.5rem;
-}
-
-hr {
-  margin: 2rem 0;
-}
-</style>
-
-
