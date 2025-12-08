@@ -28,18 +28,18 @@ export const useSimulationStore = defineStore('simulation', {
 
   actions: {
     // ✅ CARICAMENTO LOCALITÀ
-    async loadLocations() {
+      async loadLocations() {
       this.loading = true;
-      this.error = null;
-
       try {
-        this.locations = await getLocations();
+        const res = await getLocations();
+        this.locations = res.data;
       } catch (err) {
-        this.error = err.message || 'Errore caricamento località';
+        this.error = 'Errore caricamento località';
       } finally {
         this.loading = false;
       }
     },
+   
 
     // ✅ INVIO SIMULAZIONE
     async submitSimulation() {
@@ -91,6 +91,7 @@ export const useSimulationStore = defineStore('simulation', {
     }
   }
 });
+
 
 
 
