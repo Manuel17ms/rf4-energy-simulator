@@ -3,18 +3,19 @@ import { postSimulation, getLocations } from '../api/simulation';
 
 export const useSimulationStore = defineStore('simulation', {
   state: () => ({
-    form: {
-      squareMeters: 80,
-      housingType: 'apartment',
-      residents: 1,
-      energy: { water: 'electricity', heating: 'gas', cooking: 'electricity' },
-      locationId: ''
-    },
-    locations: [],
-    result: null,
-    loading: false,
-    error: null
-  }),
+  form: {
+    squareMeters: 80,
+    housingType: 'apartment',
+    residents: 1,
+    energy: { water: 'electricity', heating: 'gas', cooking: 'electricity' },
+    locationId: ''
+  },
+  locations: [],
+  result: null,
+  history: [], 
+  loading: false,
+  error: null
+}),
   actions: {
     async loadLocations() {
       this.loading = true;
@@ -32,18 +33,21 @@ export const useSimulationStore = defineStore('simulation', {
 
   try {
     const res = await postSimulation(this.form);
+    this.result = res.data;
 
-    console.log('✅ RISPOSTA API:', res);
-
-    this.result = res.data;   // ✅ GIUSTO
+    this.history.push({
+      ...res.data,
+      date: new Date().toLocaleString()
+    });
 
   } catch (err) {
-    console.error('❌ ERRORE API:', err);
     this.error = err.message || 'Errore chiamata API';
   } finally {
     this.loading = false;
   }
 }
+
   }
 });
+
 
