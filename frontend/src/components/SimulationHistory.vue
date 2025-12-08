@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h2>Storico simulazioni</h2>
+    <h2>📊 Storico Simulazioni</h2>
 
-    <div v-if="history.length === 0">
-      Nessuna simulazione effettuata
-    </div>
+    <p v-if="store.history.length === 0">
+      Nessuna simulazione effettuata.
+    </p>
 
     <ul v-else>
-      <li v-for="(item, i) in history" :key="i">
+      <li v-for="(item, index) in store.history" :key="index">
         📅 {{ item.date }} —
-        🔋 {{ item.estimatedConsumptionKWh }} kWh —
-        💶 € {{ item.estimatedAnnualCost }}
+        🔋 {{ item.consumption }} kWh —
+        🌱 {{ item.co2 }} kg CO₂
       </li>
     </ul>
   </div>
@@ -20,9 +20,10 @@
 import { useSimulationStore } from '../store/simulationStore';
 
 export default {
+  name: 'SimulationHistory',
   setup() {
     const store = useSimulationStore();
-    return { history: store.history };
+    return { store };
   }
 };
 </script>
