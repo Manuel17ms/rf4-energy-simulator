@@ -14,8 +14,9 @@ export const useSimulationStore = defineStore('simulation', {
   result: null,
   history: [], 
   loading: false,
-  error: null
   compareResult: null,
+  error: null
+  
 }),
   actions: {
     async loadLocations() {
@@ -56,6 +57,7 @@ async compareLocation(locationId) {
 }
   }
 });
+
 
 
 
