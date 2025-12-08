@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { postSimulation, getLocations, getCompare } from '../api/simulation';
+import { postSimulation, getLocations, compareLocationApi } from '../api/simulation';
 
 export const useSimulationStore = defineStore('simulation', {
   state: () => ({
@@ -17,29 +17,27 @@ export const useSimulationStore = defineStore('simulation', {
 
     locations: [],
     result: null,
-
-    // ✅ STORICO VERO
-    history: [],
-
-    // ✅ CONFRONTO
     compareResult: null,
-
+    history: [],
     loading: false,
     error: null
   }),
 
   actions: {
+    // ✅ CARICA LOCALITÀ
     async loadLocations() {
       this.loading = true;
       try {
-        this.locations = await getLocations();
+        const res = await getLocations();
+        this.locations = res.data;
       } catch (err) {
-        this.error = err.message || 'Errore caricamento locations';
+        this.error = 'Errore caricamento località';
       } finally {
         this.loading = false;
       }
     },
 
+    // ✅ ESEGUI SIMULAZIONE
     async submitSimulation() {
       this.loading = true;
       this.error = null;
@@ -47,30 +45,33 @@ export const useSimulationStore = defineStore('simulation', {
       try {
         const res = await postSimulation(this.form);
 
-        // ✅ RISULTATO ATTUALE
-        this.result = res.data.data;
+        // ✅ RISPOSTA OPENAPI
+        this.result = res.data;
 
-        // ✅ SALVATAGGIO NELLO STORICO
+        // ✅ SALVATAGGIO STORICO CORRETTO
         this.history.unshift({
           date: new Date().toLocaleString(),
-          consumption: this.result.estimatedConsumptionKWh,
-          co2: this.result.co2EquivalentKg
+          consumption: res.data.estimatedConsumptionKWh,
+          co2: res.data.co2EquivalentKg
         });
 
       } catch (err) {
-        this.error = err.message || 'Errore chiamata API';
+        this.error = 'Errore chiamata simulazione';
       } finally {
         this.loading = false;
       }
     },
 
-    // ✅ CONFRONTO TRA LOCALITÀ
+    // ✅ CONFRONTO LOCALITÀ
     async compareLocation(locationId) {
+      this.loading = true;
       try {
         const res = await compareLocationApi(locationId);
-        this.compareResult = res.data.data;
+        this.compareResult = res.data;
       } catch (err) {
-        console.error('Errore confronto:', err);
+        this.error = 'Errore confronto località';
+      } finally {
+        this.loading = false;
       }
     }
   }
