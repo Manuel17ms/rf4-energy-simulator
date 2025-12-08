@@ -2,23 +2,26 @@ import { defineStore } from 'pinia';
 import { postSimulation, getLocations, getCompare } from '../api/simulation';
 
 export const useSimulationStore = defineStore('simulation', {
-  state: () => ({
-    form: {
-      squareMeters: 80,
-      housingType: 'apartment',
-      residents: 1,
-      energy: { water: 'electricity', heating: 'gas', cooking: 'electricity' },
-      locationId: ''
-    },
+ state: () => ({
+  form: {
+    squareMeters: 80,
+    housingType: 'apartment',
+    residents: 1,
+    energy: { water: 'electricity', heating: 'gas', cooking: 'electricity' },
+    locationId: ''
+  },
 
-    locations: [],
-    result: null,
+  locations: [],
 
-    compareResult: null, // ✅ QUESTO SERVE PER MOSTRARLO
+  result: null,
+  compareResult: null,
 
-    loading: false,
-    error: null
-  }),
+  history: [], // ✅ STORICO RIPRISTINATO
+
+  loading: false,
+  error: null
+}),
+
 
   actions: {
     async loadLocations() {
@@ -32,23 +35,32 @@ export const useSimulationStore = defineStore('simulation', {
       }
     },
 
-    async submitSimulation() {
-      this.loading = true;
-      this.error = null;
+   async submitSimulation() {
+  this.loading = true;
+  this.error = null;
 
-      try {
-        const res = await postSimulation(this.form);
+  try {
+    const res = await postSimulation(this.form);
 
-        console.log('RISPOSTA API:', res);
+    console.log('RISPOSTA API:', res);
 
-        this.result = res.data; // ✅ QUI ERA IL PROBLEMA PRIMA
+    this.result = res.data;
 
-      } catch (err) {
-        this.error = err.message || 'Errore chiamata API';
-      } finally {
-        this.loading = false;
-      }
-    },
+    // ✅ SALVIAMO NELLO STORICO
+    this.history.unshift({
+      id: Date.now(),
+      date: new Date().toLocaleString(),
+      input: { ...this.form },
+      output: res.data
+    });
+
+  } catch (err) {
+    this.error = err.message || 'Errore chiamata API';
+  } finally {
+    this.loading = false;
+  }
+},
+
 
     async compareLocation(locationId) {
       try {
@@ -63,6 +75,7 @@ export const useSimulationStore = defineStore('simulation', {
     }
   }
 });
+
 
 
 
