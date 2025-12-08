@@ -5,21 +5,19 @@ const API = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-// ✅ INVIO SIMULAZIONE
-export async function postSimulation(data) {
-  return axios.post(`${API_URL}/simulation`, data);
+export function postSimulation(data) {
+  return API.post('/simulation', data).then(res => res.data);
 }
 
-// ✅ CARICAMENTO LOCALITÀ
-export async function getLocations() {
-  const res = await axios.get(`${API_URL}/locations`);
-  return res.data;
+export function getLocations() {
+  return API.get('/localita').then(res => res.data);
 }
 
-// ✅ CONFRONTO LOCALITÀ (QUESTA MANCAVA!)
-export async function compareLocationApi(locationId) {
-  return axios.get(`${API_URL}/simulation/compare/${locationId}`);
+
+export function getCompare(locationId) {
+  return API.get(`/simulation/compare/${locationId}`).then(res => res.data);
 }
+
 
 
 
