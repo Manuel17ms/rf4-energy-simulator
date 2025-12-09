@@ -1,79 +1,75 @@
+<script setup>
+import { useSimulationStore } from '../store/simulationStore';
+import { storeToRefs } from 'pinia';
+
+// Prendiamo lo store
+const simulation = useSimulationStore();
+
+// Rendiamo reattivi gli stati
+const { result, compareResult, history, locations } = storeToRefs(simulation);
+</script>
+
 <template>
-  <div>
-    <button @click="goBack" style="margin-bottom:1rem;">← Nuova simulazione</button>
+  <div class="container">
 
-    <!-- ✅ RISULTATO PRINCIPALE -->
-    <div v-if="store.result">
-  <p><strong>Consumo:</strong> {{ simulation.result.estimatedConsumptionKWh }} kWh</p>
-  <p><strong>CO₂:</strong> {{ simulation.result.co2EquivalentKg }} kg</p>
-</div>
+    <h1>RF4 — Simulazione Consumo Energetico</h1>
 
-<div v-else>
-  <p>Nessun risultato disponibile.</p>
-</div>
+    <!-- 🔹 RISULTATO SIMULAZIONE -->
+    <section v-if="result" class="card">
+      <h2>Risultato Simulazione</h2>
 
+      <p><strong>Consumo:</strong> {{ result.estimatedConsumptionKWh }} kWh</p>
+      <p><strong>CO₂:</strong> {{ result.co2EquivalentKg }} kg</p>
+    </section>
 
-    <!-- ✅ CONFRONTO -->
-    <div style="border:1px solid #ddd; padding:1rem; border-radius:8px; margin-bottom:1rem;">
-      <h3>Confronto con la località</h3>
+    <section v-else class="card">
+      <p>Nessun risultato disponibile.</p>
+    </section>
 
-      <select v-model="selectedLocation">
-        <option value="">-- Seleziona località --</option>
-        <option v-for="loc in store.locations" :key="loc.id" :value="loc.id">
+    <!-- 🔹 CONFRONTO LOCALITÀ -->
+    <section class="card">
+      <h2>Confronto con la località</h2>
+
+      <select v-model="simulation.form.locationId">
+        <option disabled value="">Seleziona località</option>
+        <option v-for="loc in locations" :key="loc.id" :value="loc.id">
           {{ loc.name }}
         </option>
       </select>
 
-      <button @click="compare" style="margin-left:0.5rem;">
+      <button @click="simulation.compareLocation(simulation.form.locationId)">
         Confronta
       </button>
 
-      <div v-if="store.compareResult" style="margin-top:1rem;">
-        <p><strong>Consumo medio:</strong> {{ store.compareResult.estimatedConsumptionKWh }} kWh</p>
-        <p><strong>CO₂ medio:</strong> {{ store.compareResult.co2EquivalentKg }} kg</p>
+      <div v-if="compareResult">
+        <p><strong>Consumo medio:</strong> {{ compareResult.averageKWh }} kWh</p>
+        <p><strong>CO₂ media:</strong> {{ compareResult.averageCO2 }} kg</p>
       </div>
-    </div>
+    </section>
 
-    <!-- ✅ STORICO -->
-    <div style="border:1px solid #ddd; padding:1rem; border-radius:8px;">
-      <h3>📊 Storico Simulazioni</h3>
-
-      <div v-if="store.history.length === 0">
-        Nessuna simulazione ancora.
-      </div>
+    <!-- 🔹 STORICO -->
+    <section class="card">
+      <h2>📊 Storico Simulazioni</h2>
 
       <ul>
-        <li v-for="(item, index) in store.history" :key="index">
-          📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — {{ item.co2 }} kg CO₂
-
+        <li v-for="(item, index) in history" :key="index">
+          📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — 🌱 {{ item.co2 }} kg CO₂
         </li>
       </ul>
-    </div>
+    </section>
+
   </div>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { useSimulationStore } from '../store/simulationStore';
-
-export default {
-  name: 'ResultView',
-  setup() {
-    const store = useSimulationStore();
-    const selectedLocation = ref('');
-
-    async function compare() {
-      if (!selectedLocation.value) return;
-      await store.compareLocation(selectedLocation.value);
-    }
-
-    function goBack() {
-      window.location.href = '/';
-    }
-
-    return { store, selectedLocation, compare, goBack };
-  }
-};
-</script>
-
-
+<style>
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+.card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+</style>
