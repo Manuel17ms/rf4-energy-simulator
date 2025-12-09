@@ -3,7 +3,7 @@
     <button @click="goBack" style="margin-bottom:1rem;">← Nuova simulazione</button>
 
     <!-- ✅ RISULTATO PRINCIPALE -->
-    <div v-if="simulation.result">
+    <div v-if="store.result">
   <p><strong>Consumo:</strong> {{ simulation.result.estimatedConsumptionKWh }} kWh</p>
   <p><strong>CO₂:</strong> {{ simulation.result.co2EquivalentKg }} kg</p>
 </div>
@@ -75,4 +75,5 @@ export default {
   }
 };
 </script>
+
 
