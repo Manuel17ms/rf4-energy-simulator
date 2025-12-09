@@ -75,28 +75,29 @@ export const useSimulationStore = defineStore('simulation', {
 
   // Confronto località
   async compareLocation(locationId) {
-    if (!locationId) return;
+  if (!locationId) return;
 
-    this.loading = true;
-    this.error = null;
+  this.loading = true;
+  this.error = null;
 
-    try {
-      const res = await getCompare(locationId);
+  try {
+    const res = await getCompare(locationId);
 
-      console.log("RISPOSTA CONFRONTO:", res.data);
+    console.log("RISPOSTA CONFRONTO:", res.data);
 
-      // Anche qui il backend manda { message: "...", data: {...} }
-      this.compareResult = res.data.data;
-    } 
-    catch (err) {
-      this.error = err.message || "Errore confronto località";
-    } 
-    finally {
-      this.loading = false;
-    }
+    // salva direttamente i dati
+    this.compareResult = res.data;
+
+  } catch (err) {
+    this.error = err.message || "Errore confronto località";
+  } finally {
+    this.loading = false;
   }
 }
+
+}
 })
+
 
 
 
