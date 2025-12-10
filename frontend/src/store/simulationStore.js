@@ -85,18 +85,22 @@ export const useSimulationStore = defineStore('simulation', {
 
     console.log("RISPOSTA CONFRONTO:", res.data);
 
-    this.compareResult = res.data;
-
+    this.compareResult = {
+      avgConsumptionKWh: res.data.estimatedConsumptionKWh,
+      avgCo2Kg: res.data.co2EquivalentKg
+    };
   } catch (err) {
-    this.error = err.message || "Errore confronto località";
+    this.error = err.message || 'Errore confronto località';
   } finally {
     this.loading = false;
   }
 }
 
 
+
 }
 })
+
 
 
 
