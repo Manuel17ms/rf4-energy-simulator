@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
-const simulationRoutes = require('./routes/simulation.routes');
+const simulationRoutes = require('./routes/simulationRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -30,5 +30,6 @@ app.get('/', (req, res) => res.json({ message: 'RF4 Simulation Backend' }));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => console.log(`Server listening on port ${PORT}`));
+
 
 
