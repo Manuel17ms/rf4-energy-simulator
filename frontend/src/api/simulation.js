@@ -18,8 +18,10 @@ export function getLocations() {
 
 
 export function getCompare(locationId) {
-  return API.get(`/simulation/compare/${locationId}`).then(res => res.data);
+  return axios.get(`/api/simulation/compare/${locationId}`);
 }
+
+
 
 
 
