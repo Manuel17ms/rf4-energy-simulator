@@ -5,21 +5,22 @@ const API = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-
+// Simulazione
 export function postSimulation(data) {
   return API.post('/simulation', data).then(res => res.data);
 }
 
-
-
+// Località
 export function getLocations() {
-  return API.get('/locations');
+  return API.get('/locations').then(res => res.data);
 }
 
-
+// Confronto
 export function getCompare(locationId) {
-  return axios.get(`/api/simulation/compare/${locationId}`);
+  return API.get(`/simulation/compare/${locationId}`).then(res => res.data);
 }
+
+
 
 
 
