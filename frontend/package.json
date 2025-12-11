@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "update-ip": "node update-ip.js",
+    "dev": "npm run update-ip && vite",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -17,3 +18,4 @@
     "vite": "^5.1.0"
   }
 }
+
