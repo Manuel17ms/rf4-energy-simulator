@@ -76,9 +76,8 @@ export const useSimulationStore = defineStore('simulation', {
   // Confronto località
  async compareLocation(locationId) {
   try {
-    const data = await getCompare(locationId);
-this.compareResult = data;
-
+    const res = await getCompare(locationId);
+    this.compareResult = res.data;
   } catch (err) {
     console.error("Errore confronto:", err);
   }
@@ -87,8 +86,10 @@ this.compareResult = data;
 
 
 
+
 }
 })
+
 
 
 
