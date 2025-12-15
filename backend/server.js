@@ -22,7 +22,9 @@ connectDB(uri)
 
 // Rotte esistenti
 app.use('/api', simulationRoutes);
-app.use('/api', require('./routes/localita'));
+const localitaRoutes = require('./routes/localita');
+app.use('/api', localitaRoutes.router);
+
 
 
 // Root
@@ -30,6 +32,7 @@ app.get('/', (req, res) => res.json({ message: 'RF4 Simulation Backend' }));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => console.log(`Server listening on port ${PORT}`));
+
 
 
 
