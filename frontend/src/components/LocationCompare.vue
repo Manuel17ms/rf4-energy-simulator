@@ -7,10 +7,11 @@
     </button>
 
     <p v-if="store.compareResult">
-  Consumo medio: {{ store.compareResult.avgConsumptionKWh }} kWh  
+  Consumo medio: {{ store.compareResult.estimatedConsumptionKWh }} kWh
   <br>
-  CO₂ media: {{ store.compareResult.avgCo2Kg }} kg
+  CO₂ media: {{ store.compareResult.co2EquivalentKg }} kg
 </p>
+
 
 </template>
 
