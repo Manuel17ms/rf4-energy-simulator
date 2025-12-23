@@ -1,19 +1,23 @@
 
 
 <script setup>
+import { onMounted } from 'vue';
 import { useSimulationStore } from '../store/simulationStore';
-import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const simulation = useSimulationStore();
-const { form, locations } = storeToRefs(simulation);
+
+onMounted(() => {
+  simulation.loadLocations();
+});
 
 const submit = async () => {
-  await simulation.runSimulation();
+  await simulation.submitSimulation();
   router.push('/result');
 };
 </script>
+
 
 <template>
   <div class="page">
@@ -72,13 +76,18 @@ const submit = async () => {
 
       <div class="row">
         <label>Neighborhood</label>
-        <select v-model="form.locationId">
-          <option disabled value="">-- Select --</option>
-          <option v-for="loc in locations" :key="loc.id" :value="loc.id">
-            {{ loc.name }}
-          </option>
-        </select>
-      </div>
+        <select v-model="simulation.form.locationId">
+  <option disabled value="">-- Select --</option>
+
+  <option
+    v-for="loc in simulation.locations"
+    :key="loc.id"
+    :value="loc.id"
+  >
+    {{ loc.name }}
+  </option>
+</select>
+
 
       <button class="submit" @click="submit">
         Calculate simulation
@@ -161,5 +170,6 @@ select {
   color: #2f7c1d;
 }
 </style>
+
 
 
