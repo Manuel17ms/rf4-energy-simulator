@@ -86,15 +86,16 @@ export const useSimulationStore = defineStore('simulation', {
 
 
 
-
-
-
-}
- runSimulation() {
+runSimulation() {
   return this.submitSimulation();
 }
+
+
+}
+ 
  
 })
+
 
 
 
