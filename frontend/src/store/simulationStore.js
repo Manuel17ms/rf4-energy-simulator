@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { postSimulation, getLocations, getCompare } from '../api/simulation';
+import { postSimulation, getLocations, getCompare, getHistory } from '../api/simulation';
 
 export const useSimulationStore = defineStore('simulation', {
   state: () => ({
@@ -95,6 +95,7 @@ runSimulation() {
  
  
 })
+
 
 
 
