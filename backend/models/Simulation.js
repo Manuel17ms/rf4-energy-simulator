@@ -1,17 +1,26 @@
 const mongoose = require('mongoose');
 
-const simulationSchema = new mongoose.Schema({
+const SimulationSchema = new mongoose.Schema({
   squareMeters: Number,
   housingType: String,
   residents: Number,
+
   energy: {
     water: String,
     heating: String,
     cooking: String
   },
-  locationId: String,
-  estimatedConsumptionKWh: Number,
-  co2EquivalentKg: Number
-}, { timestamps: true });
 
-module.exports = mongoose.model('Simulation', simulationSchema);
+  locationId: String,
+
+  estimatedConsumptionKWh: Number,
+  co2EquivalentKg: Number,
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = mongoose.model('Simulation', SimulationSchema);
+
