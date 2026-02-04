@@ -84,7 +84,20 @@ export const useSimulationStore = defineStore('simulation', {
   }
 },
 
+async loadHistory() {
+  try {
+    const data = await getHistory();
 
+    this.history = data.map(sim => ({
+      date: new Date(sim.createdAt).toLocaleString(),
+      kwh: sim.estimatedConsumptionKWh,
+      co2: sim.co2EquivalentKg
+    }));
+
+  } catch (err) {
+    console.error(err);
+  }
+},
 
 runSimulation() {
   return this.submitSimulation();
@@ -95,6 +108,7 @@ runSimulation() {
  
  
 })
+
 
 
 
