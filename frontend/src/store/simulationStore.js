@@ -3,6 +3,7 @@ import { postSimulation, getLocations, getCompare, getHistory } from '../api/sim
 
 export const useSimulationStore = defineStore('simulation', {
   state: () => ({
+    sessionId: sessionStorage.getItem('sessionId') || crypto.randomUUID(),
     form: {
       squareMeters: 80,
       housingType: 'apartment',
@@ -25,7 +26,9 @@ export const useSimulationStore = defineStore('simulation', {
     loading: false,
     error: null
   }),
-
+if (!sessionStorage.getItem('sessionId')) {
+  sessionStorage.setItem('sessionId', crypto.randomUUID());
+}
  actions: {
   // Caricamento località
   async loadLocations() {
@@ -108,6 +111,7 @@ runSimulation() {
  
  
 })
+
 
 
 
