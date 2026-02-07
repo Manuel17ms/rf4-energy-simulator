@@ -8,7 +8,7 @@ const Simulation = require('../models/Simulation');
 // ===============================
 router.post('/simulation', async (req, res) => {
   try {
-    const { squareMeters, housingType, residents, energy, locationId } = req.body;
+    const { squareMeters, housingType, residents, energy, locationId, sessionId } = req.body;
 
     if (!squareMeters || !housingType || !residents || !energy || !locationId) {
       return res.status(400).json({ message: 'Dati mancanti per la simulazione' });
@@ -46,6 +46,7 @@ router.post('/simulation', async (req, res) => {
     );
 
     const simulation = new Simulation({
+      sessionId,
       squareMeters,
       housingType,
       residents,
@@ -116,6 +117,7 @@ router.get('/simulation/history', async (req, res) => {
 
 
 module.exports = router;
+
 
 
 
