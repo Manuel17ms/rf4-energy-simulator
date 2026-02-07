@@ -1,109 +1,161 @@
+
 <script setup>
 import { useSimulationStore } from '../store/simulationStore';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
-  
-onMounted(() => {
-  simulation.loadHistory();
-});
-  
+
 const router = useRouter();
 const simulation = useSimulationStore();
 
-// render reactive store properties
 const { result, compareResult, history, locations } = storeToRefs(simulation);
 
-// funzione per tornare al form
 const goBack = () => {
-  router.push('/'); // assicurati che "/" sia il percorso del form
+  router.push('/');
 };
 </script>
 
 <template>
-  <div class="container">
+  <div class="page">
 
-    <!-- 🔙 Pulsante per tornare alla simulazione -->
-    <button @click="goBack" class="back-btn">← Nuova simulazione</button>
+    <!-- LOGO -->
+    <div class="logo">TnEnergy</div>
 
-    <h1>RF4 — Simulazione Consumo Energetico</h1>
+    <!-- BACK -->
+    <div class="back" @click="goBack">←</div>
 
-    <!-- 🔹 RISULTATO SIMULAZIONE -->
-    <section v-if="result" class="card">
-      <h2>Risultato Simulazione</h2>
+    <!-- CARD -->
+    <div class="card">
 
-      <p><strong>Consumo:</strong> {{ result.estimatedConsumptionKWh }} kWh</p>
-      <p><strong>CO₂:</strong> {{ result.co2EquivalentKg }} kg</p>
-    </section>
+      <h1>Simulation Result</h1>
 
-    <section v-else class="card">
-      <p>Nessun risultato — esegui prima una simulazione.</p>
-      <button @click="goBack">Vai al form</button>
-    </section>
+      <!-- RESULT -->
+      <div v-if="result" class="section">
+        <p><strong>Consumption:</strong> {{ result.estimatedConsumptionKWh }} kWh</p>
+        <p><strong>CO₂:</strong> {{ result.co2EquivalentKg }} kg</p>
+      </div>
 
-    <!-- 🔹 CONFRONTO LOCALITÀ -->
-    <section v-if="result" class="card">
-      <h2>Confronto con la località</h2>
+      <!-- COMPARE -->
+      <div class="section">
 
-      <select v-model="simulation.form.locationId">
-        <option disabled value="">Seleziona località</option>
-        <option v-for="loc in locations" :key="loc.id" :value="loc.id">
-          {{ loc.name }}
-        </option>
-      </select>
+        <label>Neighborhood</label>
 
-      <button @click="simulation.compareLocation(simulation.form.locationId)">
-        Confronta
-      </button>
+        <select v-model="simulation.form.locationId">
+          <option disabled value="">-- Select --</option>
+          <option v-for="loc in locations" :key="loc.id" :value="loc.id">
+            {{ loc.name }}
+          </option>
+        </select>
 
-     <div v-if="compareResult">
-  <p><strong>Consumo medio:</strong> {{ compareResult.estimatedConsumptionKWh }} kWh</p>
-  <p><strong>CO₂ media:</strong> {{ compareResult.co2EquivalentKg }} kg</p>
-</div>
+        <button
+          class="secondary"
+          @click="simulation.compareLocation(simulation.form.locationId)"
+        >
+          Compare
+        </button>
 
-    </section>
+        <div v-if="compareResult" class="compareBox">
+          <p><strong>Average consumption:</strong> {{ compareResult.estimatedConsumptionKWh }} kWh</p>
+          <p><strong>Average CO₂:</strong> {{ compareResult.co2EquivalentKg }} kg</p>
+        </div>
 
-    <!-- 🔹 STORICO SIMULAZIONI -->
-    <section class="card">
-      <h2>📊 Storico Simulazioni</h2>
+      </div>
 
-      <ul>
-        <li v-for="(item, index) in history" :key="index">
-          📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — 🌱 {{ item.co2 }} kg CO₂
-        </li>
-      </ul>
-    </section>
+      <!-- HISTORY -->
+      <div class="section">
+        <h3>Simulation history</h3>
 
+        <ul>
+          <li v-for="(item, index) in history" :key="index">
+            📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — 🌱 {{ item.co2 }} kg CO₂
+          </li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 </template>
 
-<style>
-.container {
-  max-width: 900px;
-  margin: auto;
+<style scoped>
+.page {
+  min-height: 100vh;
+  background: #3a9d23;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  position: relative;
 }
 
-.card {
+/* LOGO */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #eaffd8;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #2f7c1d;
 }
 
-.back-btn {
-  background: none;
-  border: none;
-  color: #0077ff;
-  font-size: 16px;
+/* BACK */
+.back {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 32px;
+  color: #eaffd8;
   cursor: pointer;
-  margin-bottom: 1rem;
 }
 
-.back-btn:hover {
-  text-decoration: underline;
+/* CARD */
+.card {
+  width: 420px;
+  color: #eaffd8;
+}
+
+/* SECTIONS */
+.section {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* INPUT */
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  background: #eaffd8;
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
+.secondary {
+  width: 100%;
+  padding: 10px;
+  background: #eaffd8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2f7c1d;
+}
+
+.compareBox {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #eaffd8;
+  border-radius: 6px;
+}
+
+ul {
+  padding-left: 20px;
 }
 </style>
-
-
 
 
