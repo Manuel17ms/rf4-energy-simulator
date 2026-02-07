@@ -50,7 +50,7 @@ if (!sessionStorage.getItem('sessionId')) {
 
   try {
     const res = await postSimulation(this.form);
-
+sessionId: this.sessionId
     console.log("RISPOSTA API:", res.data);
 
     // Il backend restituisce direttamente i dati della simulazione
@@ -111,6 +111,7 @@ runSimulation() {
  
  
 })
+
 
 
 
