@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const SimulationSchema = new mongoose.Schema({
+  sessionId: String,
   squareMeters: Number,
   housingType: String,
   residents: Number,
@@ -23,4 +24,5 @@ const SimulationSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Simulation', SimulationSchema);
+
 
