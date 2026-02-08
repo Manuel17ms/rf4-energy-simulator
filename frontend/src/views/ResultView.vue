@@ -3,6 +3,9 @@
 import { useSimulationStore } from '../store/simulationStore';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import SimulationChart from '../components/SimulationChart.vue';
+import HistoryChart from '../components/HistoryChart.vue';
+
 
 const router = useRouter();
 const simulation = useSimulationStore();
@@ -157,5 +160,6 @@ ul {
   padding-left: 20px;
 }
 </style>
+
 
 
