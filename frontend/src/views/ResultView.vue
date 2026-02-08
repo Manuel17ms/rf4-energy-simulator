@@ -62,6 +62,11 @@ const goBack = () => {
         </div>
 
       </div>
+    <SimulationChart
+      v-if="compareResult && result"
+      :userValue="result.estimatedConsumptionKWh"
+      :compareValue="compareResult.estimatedConsumptionKWh"
+    />
 
       <!-- HISTORY -->
       <div class="section">
@@ -71,6 +76,11 @@ const goBack = () => {
           <li v-for="(item, index) in history" :key="index">
             📅 {{ item.date }} — 🔋 {{ item.kwh }} kWh — 🌱 {{ item.co2 }} kg CO₂
           </li>
+          <HistoryChart
+            v-if="history.length"
+            :history="history"
+          />
+
         </ul>
       </div>
 
@@ -160,6 +170,7 @@ ul {
   padding-left: 20px;
 }
 </style>
+
 
 
 
