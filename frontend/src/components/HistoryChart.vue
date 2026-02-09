@@ -41,9 +41,6 @@ const chartOptions = {
   plugins: {
     legend: {
       display: false
-      labels: {
-        color: '#eaffd8'
-      }
     }
   },
   scales: {
