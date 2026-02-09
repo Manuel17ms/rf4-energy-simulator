@@ -25,53 +25,56 @@ const submit = async () => {
 
       <h1>Simulator</h1>
 
-      <form @submit.prevent="simulation.submitSimulation">
+    <form @submit.prevent="submit">
 
-        <label>Square footage (m²)</label>
-        <input type="number" v-model="simulation.form.squareMeters" />
+  <label>Square footage (m²)</label>
+  <input type="number" v-model="simulation.form.squareMeters" />
 
-        <label>Type of dwelling</label>
-        <select v-model="simulation.form.housingType">
-          <option value="apartment">Apartment</option>
-          <option value="house">House</option>
-        </select>
+  <label>Type of dwelling</label>
+  <select v-model="simulation.form.housingType">
+    <option value="apartment">Apartment</option>
+    <option value="house">House</option>
+  </select>
 
-        <label>Number of residents</label>
-        <input type="number" v-model="simulation.form.residents" />
+  <label>Number of residents</label>
+  <input type="number" v-model="simulation.form.residents" />
 
-        <label>Energy for water</label>
-        <select v-model="simulation.form.energy.water">
-          <option value="electricity">Electricity</option>
-          <option value="gas">Gas</option>
-        </select>
+  <label>Energy for water</label>
+  <select v-model="simulation.form.energy.water">
+    <option value="electricity">Electricity</option>
+    <option value="gas">Gas</option>
+  </select>
 
-        <label>Heating</label>
-        <select v-model="simulation.form.energy.heating">
-          <option value="electricity">Electricity</option>
-          <option value="gas">Gas</option>
-        </select>
+  <label>Heating</label>
+  <select v-model="simulation.form.energy.heating">
+    <option value="electricity">Electricity</option>
+    <option value="gas">Gas</option>
+  </select>
 
-        <label>Kitchen</label>
-        <select v-model="simulation.form.energy.cooking">
-          <option value="electricity">Electricity</option>
-          <option value="gas">Gas</option>
-        </select>
+  <label>Kitchen</label>
+  <select v-model="simulation.form.energy.cooking">
+    <option value="electricity">Electricity</option>
+    <option value="gas">Gas</option>
+  </select>
 
-        <label>Neighborhood</label>
-        <select v-model="simulation.form.locationId">
-          <option disabled value="">-- Select --</option>
-          <option
-            v-for="loc in simulation.locations"
-            :key="loc.id"
-            :value="loc.id"
-          >
-            {{ loc.name }}
-          </option>
-        </select>
+  <label>Neighborhood</label>
+  <select v-model="simulation.form.locationId">
+    <option disabled value="">-- Select --</option>
+    <option
+      v-for="loc in simulation.locations"
+      :key="loc.id"
+      :value="loc.id"
+    >
+      {{ loc.name }}
+    </option>
+  </select>
 
-        <button type="submit">Calculate simulation</button>
+  <button type="submit" class="submit">
+    Calculate simulation
+  </button>
 
-      </form>
+</form>
+
     </div>
   </div>
 </template>
@@ -151,6 +154,7 @@ select {
 
 
 </style>
+
 
 
 
