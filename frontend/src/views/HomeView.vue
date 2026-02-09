@@ -78,99 +78,83 @@ const submit = async () => {
 
 
 <style scoped>
-  .page {
-  width: 100vw;
-  height: 100vh;
-  background: #2f6f2f;  
+.page {
+  min-height: 100vh;
+  background: #2f6f2f;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
   position: relative;
-  overflow: hidden;
 }
 
-
+/* LOGO */
 .logo {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 30px;
+  left: 30px;
   background: #e7f6e7;
-  padding: 18px 28px;
-  border-radius: 40px;
+  padding: 22px;
+  border-radius: 50%;
   font-weight: bold;
   color: #2f6f2f;
 }
 
-.back {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 28px;
-  color: #e7f6e7;
-  cursor: pointer;
-}
-
-
+/* CARD */
 .card {
-  width: 520px;             
-  padding: 50px;
-  border-radius: 18px;
-
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(6px);
-
+  width: 520px;
+  padding: 35px;
+  border-radius: 14px;
+  background: #3f8c3f;
   color: #f4fff4;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 }
 
-
-h1 {
+.card h1 {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
-.row {
+/* FORM */
+form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  flex-direction: column;
+  gap: 14px;
 }
 
 label {
-  font-size: 15px;
+  font-size: 14px;
 }
 
+/* INPUT */
 input,
 select {
-  width: 190px;      
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   border: none;
   background: #e7f6e7;
 }
 
+/* BUTTON */
 .submit {
-  width: 100%;
-  margin-top: 28px;
-  padding: 14px;
-
-  background: #e7f6e7;
+  margin-top: 20px;
+  padding: 12px;
   border: none;
   border-radius: 6px;
-
-  cursor: pointer;
-  font-weight: bold;
+  background: #e7f6e7;
   color: #2f6f2f;
-
-  transition: 0.2s ease;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+submit:hover {
+  transform: scale(1.02);
 }
+
 
 </style>
+
 
 
 
