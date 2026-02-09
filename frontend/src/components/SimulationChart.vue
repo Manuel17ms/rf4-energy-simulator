@@ -35,7 +35,7 @@ watch(
 const chartOptions = {
   responsive: true,
   plugins: {
-    legend: { display: false }
+    legend: { display: true }
   }
 }
 </script>
