@@ -1,56 +1,91 @@
+
 <script setup>
+import { computed } from 'vue'
 import { Bar } from 'vue-chartjs'
+
 import {
-  Chart,
+  Chart as ChartJS,
   BarElement,
   CategoryScale,
   LinearScale,
-  Tooltip
+  Tooltip,
+  Legend
 } from 'chart.js'
-import { ref, watch } from 'vue'
 
-Chart.register(BarElement, CategoryScale, LinearScale, Tooltip)
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+)
 
 const props = defineProps({
   userValue: Number,
   compareValue: Number
 })
 
-const chartData = ref({
+/* ======================
+   DATA REATTIVO
+====================== */
+
+const chartData = computed(() => ({
   labels: ['Your home', 'Neighborhood average'],
+
   datasets: [
     {
-      data: [props.userValue, props.compareValue],
-
-      backgroundColor: [
-        '#e7f6e7',  
-        '#cde9cd'    
+      data: [
+        props.userValue ?? 0,
+        props.compareValue ?? 0
       ],
 
-      borderWidth: 0
+      backgroundColor: [
+        '#e7f6e7',
+        '#cde9cd'
+      ],
+
+      borderRadius: 6
     }
   ]
-})
+}))
 
-
-watch(
-  () => [props.userValue, props.compareValue],
-  ([newUser, newCompare]) => {
-    chartData.value.datasets[0].data = [newUser, newCompare]
-  }
-)
-
+/* ======================
+   OPTIONS
+====================== */
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: false,
+
   plugins: {
     legend: { display: false }
+  },
+
+  scales: {
+    y: {
+      ticks: {
+        color: '#eaffd8'
+      },
+      grid: {
+        color: 'rgba(255,255,255,0.1)'
+      }
+    },
+
+    x: {
+      ticks: {
+        color: '#eaffd8'
+      },
+      grid: {
+        display: false
+      }
+    }
   }
 }
 </script>
 
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <div style="height:300px">
+    <Bar :data="chartData" :options="chartOptions" />
+  </div>
 </template>
-
 
