@@ -88,7 +88,7 @@ const goBack = () => router.push('/');
           />
         </div>
 
-        <div v-if="history.length > 1" class="chartCard">
+        <div v-if="history.length >= 1" class="chartCard">
           <HistoryChart :history="history" />
         </div>
 
@@ -194,6 +194,7 @@ ul {
 }
 
 </style>
+
 
 
 
