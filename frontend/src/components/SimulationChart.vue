@@ -1,60 +1,41 @@
 <script setup>
 import { Bar } from 'vue-chartjs'
 import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
+  Chart,
   BarElement,
   CategoryScale,
-  LinearScale
+  LinearScale,
+  Tooltip
 } from 'chart.js'
+import { ref, watch } from 'vue'
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-)
+Chart.register(BarElement, CategoryScale, LinearScale, Tooltip)
 
 const props = defineProps({
   userValue: Number,
   compareValue: Number
 })
 
-const chartData = {
+const chartData = ref({
   labels: ['Your home', 'Neighborhood average'],
   datasets: [
     {
-      label: 'Energy Consumption (kWh)',
-      data: [props.userValue, props.compareValue],
-      backgroundColor: ['#eaffd8', '#b7e8a5']
+      data: [props.userValue, props.compareValue]
     }
   ]
-}
+})
+
+watch(
+  () => [props.userValue, props.compareValue],
+  ([newUser, newCompare]) => {
+    chartData.value.datasets[0].data = [newUser, newCompare]
+  }
+)
 
 const chartOptions = {
   responsive: true,
   plugins: {
-    legend: {
-      labels: {
-        color: '#eaffd8'
-      }
-    }
-  },
-  scales: {
-    y: {
-      ticks: {
-        color: '#eaffd8'
-      }
-    },
-    x: {
-      ticks: {
-        color: '#eaffd8'
-      }
-    }
+    legend: { display: false }
   }
 }
 </script>
@@ -62,3 +43,5 @@ const chartOptions = {
 <template>
   <Bar :data="chartData" :options="chartOptions" />
 </template>
+
+
