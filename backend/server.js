@@ -1,3 +1,4 @@
+
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -16,11 +17,14 @@ app.use(express.json())
 app.use('/api', simulationRoutes)
 app.use('/api', localitaRoutes)
 
-connectDB(process.env.MONGODB_URI)
+// 🔥 collega DB SOLO se non sei in test
+if (process.env.NODE_ENV !== 'test') {
+  connectDB(process.env.MONGODB_URI)
+}
 
-// export per test
 export default app
 
+// start server solo fuori test
 if (process.env.NODE_ENV !== 'test') {
 
   const PORT = process.env.PORT || 4000
