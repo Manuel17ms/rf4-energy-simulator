@@ -7,7 +7,6 @@ import { connectDB } from './config/db.js'
 import simulationRoutes from './routes/simulation.routes.js'
 import localitaRoutes from './routes/localita.js'
 
-import dotenv from 'dotenv'
 
 dotenv.config({
   path: process.env.NODE_ENV === 'test'
@@ -41,6 +40,7 @@ if (process.env.NODE_ENV !== 'test') {
   })
 
 }
+
 
 
 
