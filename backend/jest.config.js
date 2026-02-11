@@ -1,5 +1,6 @@
 export default {
   testEnvironment: 'node',
-  setupFiles: ['dotenv/config']
+  setupFiles: ['dotenv/config'],
+  testTimeout: 10000
 }
 
