@@ -1,6 +1,7 @@
 {
   "name": "rf4-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "RF4 Energy Simulation Backend (Node.js + Express + MongoDB)",
   "main": "server.js",
  
@@ -22,5 +23,6 @@
   "author": "RF4 Project",
   "license": "MIT"
 }
+
 
 
