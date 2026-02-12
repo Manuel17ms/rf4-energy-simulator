@@ -17,13 +17,15 @@ export function getLocations() {
 
 // Confronto
 export function getCompare(locationId) {
-  return API.get(`/simulation/compare/${locationId}`);
+  return API.get(`/simulation/compare/${locationId}`).then(r => r.data);
 }
+
 
 
 export function getHistory() {
   return API.get('/simulation/history/${sessionId}').then(res => res.data);
 }
+
 
 
 
