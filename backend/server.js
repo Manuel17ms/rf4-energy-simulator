@@ -8,7 +8,6 @@ import simulationRoutes from './routes/simulation.routes.js'
 import localitaRoutes from './routes/localita.js'
 
 
-import dotenv from 'dotenv';
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -45,6 +44,7 @@ if (process.env.NODE_ENV !== 'test') {
   })
 
 }
+
 
 
 
