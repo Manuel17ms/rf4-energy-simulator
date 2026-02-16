@@ -2,7 +2,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-
+app.get('/health', (req, res) => res.json({ ok: true }));
 import { connectDB } from './config/db.js'
 import simulationRoutes from './routes/simulation.routes.js'
 import localitaRoutes from './routes/localita.js'
@@ -18,6 +18,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 const app = express()
+
+
 
 app.use(cors())
 app.use(express.json())
@@ -42,6 +44,7 @@ if (process.env.NODE_ENV !== 'test') {
   })
 
 }
+
 
 
 
