@@ -23,7 +23,7 @@ const goBackToLanding = () => router.push('/')
   <div class="page">
 
     <div class="logo">TnEnergy</div>
-    <div class="back" @click="goBackToLanding"></div>
+    <div class="back" @click="goBackToLanding">←</div>
     <div class="card">
 
       <h1>Simulator</h1>
@@ -167,6 +167,7 @@ select {
 
 
 </style>
+
 
 
 
