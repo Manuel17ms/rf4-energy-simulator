@@ -12,7 +12,7 @@ const simulation = useSimulationStore();
 
 const { result, compareResult, history, locations } = storeToRefs(simulation);
 
-const goBack = () => router.push('/');
+const goBack = () => router.push('/home');
 </script>
 
 <template>
@@ -226,6 +226,7 @@ ul {
 }
 
 </style>
+
 
 
 
