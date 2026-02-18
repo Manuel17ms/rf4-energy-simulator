@@ -14,13 +14,16 @@ const submit = async () => {
   await simulation.submitSimulation()
   router.push('/result')
 }
+  
+const goBackToLanding = () => router.push('/')  
+  
 </script>
 
 <template>
   <div class="page">
 
     <div class="logo">TnEnergy</div>
-
+    <div class="back" @click="goBackToLanding"></div>
     <div class="card">
 
       <h1>Simulator</h1>
@@ -151,10 +154,20 @@ select {
   cursor: pointer;
   transition: 0.2s;
 }
+/* BACK */
+.back {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 28px;
+  color: #e7f6e7;
+  cursor: pointer;
+}
 
 
 
 </style>
+
 
 
 
