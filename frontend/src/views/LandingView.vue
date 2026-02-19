@@ -15,7 +15,7 @@ const goSimulation = () => {
     <div class="menu">
       <button class="pill" disabled>Local data</button>
 
-      <!-- SOLO QUESTO CLICCABILE -->
+     
       <button class="pill" @click="goSimulation">Simulation</button>
 
       <button class="pill" disabled>Dashboard</button>
