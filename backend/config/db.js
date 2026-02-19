@@ -11,7 +11,7 @@ export async function connectDB(uri) {
 
     console.error(error)
 
-    // 🔥 NON uscire nei test
+
     if (process.env.NODE_ENV !== 'test') {
       process.exit(1)
     }
@@ -20,6 +20,7 @@ export async function connectDB(uri) {
   }
 
 }
+
 
 
 
