@@ -4,7 +4,7 @@ import { localita } from './localita.js'
 
 const router = express.Router()
 
-// ---------------- POST SIMULATION ----------------
+
 
 router.post('/simulation', async (req, res) => {
 
@@ -46,7 +46,6 @@ router.post('/simulation', async (req, res) => {
 })
 
 
-// ---------------- COMPARE ----------------
 
 router.get('/simulation/compare/:locationId', (req, res) => {
 
@@ -64,7 +63,6 @@ router.get('/simulation/compare/:locationId', (req, res) => {
 })
 
 
-// ---------------- HISTORY ----------------
 
 router.get('/simulation/history/:sessionId', async (req, res) => {
 
@@ -74,6 +72,7 @@ router.get('/simulation/history/:sessionId', async (req, res) => {
 })
 
 export default router
+
 
 
 
