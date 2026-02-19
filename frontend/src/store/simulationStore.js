@@ -76,9 +76,7 @@ export const useSimulationStore = defineStore('simulation', {
       }
     },
 
-    // =========================
-    // Confronto località
-    // =========================
+    
     async compareLocation(locationId) {
       try {
         
@@ -89,15 +87,13 @@ export const useSimulationStore = defineStore('simulation', {
       }
     },
 
-    // =========================
-    // Carica storico Mongo
-    // =========================
+    
     async loadHistory() {
       try {
         
         const sims = await getHistory(this.sessionId);
 
-        // Ordina dal più recente (se non lo fai già nel backend)
+       
         const sorted = [...sims].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         this.history = sorted.map(sim => ({
@@ -115,6 +111,7 @@ export const useSimulationStore = defineStore('simulation', {
     }
   }
 });
+
 
 
 
