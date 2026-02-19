@@ -32,9 +32,7 @@ const props = defineProps({
   }
 })
 
-/* ========================
-   DATA REATTIVO
-======================== */
+
 
 const chartData = computed(() => ({
   labels: props.history.map(h => h.date),
@@ -55,9 +53,7 @@ const chartData = computed(() => ({
   ]
 }))
 
-/* ========================
-   OPTIONS
-======================== */
+
 
 const chartOptions = {
   responsive: true,
