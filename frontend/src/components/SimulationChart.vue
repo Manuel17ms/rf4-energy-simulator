@@ -25,9 +25,7 @@ const props = defineProps({
   compareValue: Number
 })
 
-/* ======================
-   DATA REATTIVO
-====================== */
+
 
 const chartData = computed(() => ({
   labels: ['Your home', 'Neighborhood average'],
@@ -49,9 +47,7 @@ const chartData = computed(() => ({
   ]
 }))
 
-/* ======================
-   OPTIONS
-====================== */
+
 
 const chartOptions = {
   responsive: true,
