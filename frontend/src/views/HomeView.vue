@@ -95,7 +95,7 @@ const goBackToLanding = () => router.push('/')
   position: relative;
 }
 
-/* LOGO */
+
 .logo {
   position: absolute;
   top: 30px;
@@ -107,7 +107,7 @@ const goBackToLanding = () => router.push('/')
   color: #2f6f2f;
 }
 
-/* CARD */
+
 .card {
   width: 520px;
   padding: 35px;
@@ -122,7 +122,7 @@ const goBackToLanding = () => router.push('/')
   margin-bottom: 25px;
 }
 
-/* FORM */
+
 form {
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@ label {
   font-size: 14px;
 }
 
-/* INPUT */
+
 input,
 select {
   padding: 10px;
@@ -142,7 +142,6 @@ select {
   background: #e7f6e7;
 }
 
-/* BUTTON */
 .submit {
   margin-top: 20px;
   padding: 12px;
@@ -154,7 +153,7 @@ select {
   cursor: pointer;
   transition: 0.2s;
 }
-/* BACK */
+
 .back {
   position: absolute;
   top: 30px;
@@ -167,6 +166,7 @@ select {
 
 
 </style>
+
 
 
 
