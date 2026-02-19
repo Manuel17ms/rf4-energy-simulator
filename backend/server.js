@@ -27,14 +27,14 @@ app.get('/api/health', (req, res) => res.json({ ok: true }))
 app.use('/api', simulationRoutes)
 app.use('/api', localitaRoutes)
 
-// 🔥 collega DB SOLO se non sei in test
+
 if (process.env.NODE_ENV !== 'test') {
   connectDB(process.env.MONGODB_URI)
 }
 
 export default app
 
-// start server solo fuori test
+
 if (process.env.NODE_ENV !== 'test') {
 
   const PORT = process.env.PORT || 4000
@@ -44,6 +44,7 @@ if (process.env.NODE_ENV !== 'test') {
   })
 
 }
+
 
 
 
