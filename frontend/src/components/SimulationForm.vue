@@ -73,14 +73,14 @@ export default {
     const router = useRouter();
 
     async function onSubmit() {
-      console.log('🔥 SUBMIT PREMUTO');
+     
 
       await store.submitSimulation();
 
-      console.log('✅ RISULTATO:', store.result);
+   
 
       if (store.result) {
-        router.push('/result'); // ✅ NO reload, NO reset store
+        router.push('/result'); 
       }
     }
 
@@ -88,6 +88,7 @@ export default {
   }
 };
 </script>
+
 
 
 
