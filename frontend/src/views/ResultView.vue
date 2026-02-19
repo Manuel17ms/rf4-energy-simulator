@@ -23,18 +23,18 @@ const goBack = () => router.push('/home');
 
     <div class="dashboard">
 
-      <!-- LEFT SIDE (DATI) -->
+      
       <div class="left">
 
         <h1>Simulation Result</h1>
 
-        <!-- RESULT -->
+     
         <div class="box" v-if="result">
           <p><strong>Consumption:</strong> {{ result.estimatedConsumptionKWh }} kWh</p>
           <p><strong>CO₂:</strong> {{ result.co2EquivalentKg }} kg</p>
         </div>
 
-        <!-- COMPARE -->
+       
         <div class="box">
 
           <label>Neighborhood</label>
@@ -64,7 +64,7 @@ const goBack = () => router.push('/home');
 
         </div>
 
-        <!-- HISTORY -->
+     
         <div class="box">
           <h3>Simulation history</h3>
 
@@ -78,7 +78,6 @@ const goBack = () => router.push('/home');
       </div>
 
 
-      <!-- RIGHT SIDE (GRAFICI) -->
       <div class="right">
 
         <div v-if="compareResult && result" class="chartCard">
@@ -110,7 +109,7 @@ const goBack = () => router.push('/home');
 }
 
 
-/* DASHBOARD GRID */
+
 .dashboard {
   max-width: 1280px;
   margin: 0 auto;
@@ -121,7 +120,7 @@ const goBack = () => router.push('/home');
   align-items: start;
 }
 
-/* LEFT PANEL */
+
 .left {
   color: #f4fff4;
 }
@@ -131,14 +130,14 @@ const goBack = () => router.push('/home');
   margin: 0 0 16px;
 }
 
-/* RIGHT PANEL */
+
 .right {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* BOX DATI */
+
 .box {
   background: rgba(255,255,255,0.06);
   border-radius: 12px;
@@ -146,15 +145,15 @@ const goBack = () => router.push('/home');
   margin-bottom: 18px;
 }
 
-/* CHART CARD */
+
 .chartCard {
   background: rgba(255,255,255,0.08);
   padding: 16px;
   border-radius: 14px;
-  min-height: 260px; /* aiuta a non “impazzire” su deploy */
+  min-height: 260px; 
 }
 
-/* SELECT */
+
 select {
   width: 100%;
   padding: 10px;
@@ -165,7 +164,7 @@ select {
   margin-bottom: 12px;
 }
 
-/* BUTTON */
+
 .secondary {
   width: 100%;
   padding: 12px;
@@ -177,19 +176,19 @@ select {
   color: #2f6f2f;
 }
 
-/* LOGO */
+
 .logo {
   position: absolute;
   top: 18px;
   left: 18px;
   background: #e7f6e7;
   padding: 14px 20px;
-  border-radius: 40px; /* meno “pallone” */
+  border-radius: 40px;
   font-weight: bold;
   color: #2f6f2f;
 }
 
-/* BACK */
+
 .back {
   position: absolute;
   top: 18px;
@@ -226,6 +225,7 @@ ul {
 }
 
 </style>
+
 
 
 
